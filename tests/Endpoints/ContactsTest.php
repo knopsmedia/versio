@@ -16,6 +16,12 @@ final class ContactsTest extends AbstractEndpointTest
         $this->contactsApi = new Contacts($this->http());
     }
 
+    /**
+     * @covers Contacts::list()
+     *
+     * @return void
+     * @throws \Versio\Exceptions\Exception
+     */
     public function testItReturnsContacts(): void
     {
         $results = $this->contactsApi->list();
@@ -26,10 +32,5 @@ final class ContactsTest extends AbstractEndpointTest
         foreach ($results['ContactList'] as $result) {
             $this->assertArrayHasKey('firstname', $result);
         }
-    }
-
-    public function testItCreatesContacts(): void
-    {
-        $this->contactsApi->create([]);
     }
 }
