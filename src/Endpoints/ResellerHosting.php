@@ -2,13 +2,15 @@
 
 namespace Versio\Endpoints;
 
-use Versio\Exceptions\Exception;
+use Versio\Exceptions\ErrorException;
 
 final class ResellerHosting extends AbstractEndpoint
 {
     /**
+     * Gets all reseller hosting.
+     *
      * @return array{resellerhostingList: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function list(): array
     {
@@ -16,10 +18,12 @@ final class ResellerHosting extends AbstractEndpoint
     }
 
     /**
+     * Get a specific reseller hosting.
+     *
      * @param string $username
      *
      * @return array{resellerhostingInfo: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function get(string $username): array
     {
@@ -27,6 +31,8 @@ final class ResellerHosting extends AbstractEndpoint
     }
 
     /**
+     * Creates a new reseller hosting.
+     *
      * @param array{
      *     name: string,
      *     email: string,
@@ -36,7 +42,7 @@ final class ResellerHosting extends AbstractEndpoint
      * } $data
      *
      * @return array{resellerhostingInfo: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function create(array $data): array
     {
@@ -44,13 +50,15 @@ final class ResellerHosting extends AbstractEndpoint
     }
 
     /**
+     * Updates an existing reseller hosting.
+     *
      * @param string    $username
      * @param bool|null $sslManagement
      * @param bool|null $autoRenew
      * @param bool|null $resetLogin
      *
      * @return array{resellerhostingInfo: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function update(string $username, ?bool $sslManagement = null, ?bool $autoRenew = null, ?bool $resetLogin = null): array
     {
@@ -72,12 +80,14 @@ final class ResellerHosting extends AbstractEndpoint
     }
 
     /**
+     * Renews reseller hosting.
+     *
      * @param string    $username
      * @param int       $term
      * @param bool|null $autoRenew
      *
      * @return array
-     * @throws Exception
+     * @throws ErrorException
      */
     public function renew(string $username, int $term, ?bool $autoRenew = null): array
     {
@@ -91,10 +101,12 @@ final class ResellerHosting extends AbstractEndpoint
     }
 
     /**
+     * Deletes a reseller hosting from your account.
+     *
      * @param string $username
      *
      * @return bool
-     * @throws Exception
+     * @throws ErrorException
      */
     public function delete(string $username): bool
     {

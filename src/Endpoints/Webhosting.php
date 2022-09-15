@@ -2,7 +2,7 @@
 
 namespace Versio\Endpoints;
 
-use Versio\Exceptions\Exception;
+use Versio\Exceptions\ErrorException;
 
 final class Webhosting extends AbstractEndpoint
 {
@@ -16,7 +16,7 @@ final class Webhosting extends AbstractEndpoint
      * } $data
      *
      * @return array{webhostingInfo: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function create(array $data): array
     {
@@ -27,7 +27,7 @@ final class Webhosting extends AbstractEndpoint
      * @param string $username
      *
      * @return bool
-     * @throws Exception
+     * @throws ErrorException
      */
     public function delete(string $username): bool
     {
@@ -38,7 +38,7 @@ final class Webhosting extends AbstractEndpoint
      * @param string $username
      *
      * @return array{webhostingInfo: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function get(string $username): array
     {
@@ -47,7 +47,7 @@ final class Webhosting extends AbstractEndpoint
 
     /**
      * @return array{webhostingList: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function list(): array
     {
@@ -60,7 +60,7 @@ final class Webhosting extends AbstractEndpoint
      * @param bool|null $autoRenew
      *
      * @return array{username: string, expires_at: string}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function renew(string $username, int $term, ?bool $autoRenew = null): array
     {
@@ -81,7 +81,7 @@ final class Webhosting extends AbstractEndpoint
      * @param bool|null $resetLogin
      *
      * @return array
-     * @throws Exception
+     * @throws ErrorException
      */
     public function update(string $username, ?bool $dnsManagement = null, ?bool $sslManagement = null, ?bool $autoRenew = null, ?bool $resetLogin = null)
     {
@@ -103,6 +103,6 @@ final class Webhosting extends AbstractEndpoint
             $data['reset_login'] = $resetLogin;
         }
 
-        return $this->http()->post($this->getEndpoint() . "/$username/update");
+        return $this->http()->post($this->getEndpoint() . "/$username/update", $data);
     }
 }

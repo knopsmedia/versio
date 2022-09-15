@@ -2,17 +2,17 @@
 
 namespace Versio\Endpoints;
 
-use Versio\Exceptions\Exception;
+use Versio\Exceptions\ErrorException;
 
 final class Categories extends AbstractEndpoint
 {
     /**
-     * Creates a new category with name.
+     * Creates a new category in your account.
      *
      * @param string $name
      *
      * @return array{category_id: int}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function create(string $name): array
     {
@@ -20,23 +20,28 @@ final class Categories extends AbstractEndpoint
     }
 
     /**
-     * Deletes a category by ID.
+     * Deletes an existing category from your account.
      *
      * @param int $categoryId
      *
      * @return bool
-     * @throws Exception
+     * @throws ErrorException
      */
     public function delete(int $categoryId): bool
     {
-        return $this->http()->delete($this->getEndpoint() . '/' . $categoryId);
+        return $this->http()->delete($this->getEndpoint() . "/$categoryId");
     }
 
     /**
-     * Returns a list of categories with keys category_id & name.
+     * Returns all categories in your account.
      *
-     * @return array{CategoryList: array}
-     * @throws Exception
+     * @return array{
+     *   CategoryList: array{
+     *     category_id: int,
+     *     name: string
+     *   }
+     * }
+     * @throws ErrorException
      */
     public function list(): array
     {

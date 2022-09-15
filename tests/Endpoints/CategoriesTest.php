@@ -3,7 +3,7 @@
 namespace VersioTests\Endpoints;
 
 use Versio\Endpoints\Categories;
-use Versio\Exceptions\Exception;
+use Versio\Exceptions\ErrorException;
 
 final class CategoriesTest extends AbstractEndpointTest
 {
@@ -21,7 +21,7 @@ final class CategoriesTest extends AbstractEndpointTest
      * @covers Categories::create()
      *
      * @return void
-     * @throws Exception
+     * @throws ErrorException
      */
     public function testItCreatesCategories(): void
     {
@@ -35,7 +35,7 @@ final class CategoriesTest extends AbstractEndpointTest
      * @covers Categories::list()
      *
      * @return void
-     * @throws Exception
+     * @throws ErrorException
      */
     public function testItReturnsCategories(): void
     {
@@ -54,7 +54,7 @@ final class CategoriesTest extends AbstractEndpointTest
      * @covers Categories::delete()
      *
      * @return void
-     * @throws Exception
+     * @throws ErrorException
      */
     public function testItDeletesCategories(): void
     {

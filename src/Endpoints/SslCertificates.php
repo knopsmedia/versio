@@ -2,7 +2,7 @@
 
 namespace Versio\Endpoints;
 
-use Versio\Exceptions\Exception;
+use Versio\Exceptions\ErrorException;
 
 final class SslCertificates extends AbstractEndpoint
 {
@@ -10,7 +10,7 @@ final class SslCertificates extends AbstractEndpoint
      * @param int $id
      *
      * @return bool
-     * @throws Exception
+     * @throws ErrorException
      */
     public function cancel(int $id): bool
     {
@@ -24,7 +24,7 @@ final class SslCertificates extends AbstractEndpoint
      * @param string $email
      *
      * @return array
-     * @throws Exception
+     * @throws ErrorException
      */
     public function changeApprover(int $id, string $email): array
     {
@@ -37,7 +37,7 @@ final class SslCertificates extends AbstractEndpoint
      * @param int $id
      *
      * @return array{SSLcertificateInfo: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function get(int $id): array
     {
@@ -52,7 +52,7 @@ final class SslCertificates extends AbstractEndpoint
      * @param string|null $status
      *
      * @return array{sslcertificatesList: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function list(?string $status = null): array
     {
@@ -81,13 +81,11 @@ final class SslCertificates extends AbstractEndpoint
      * } $data
      *
      * @return array{id: int}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function order(array $data): array
     {
-        $results = $this->http()->post($this->getEndpoint(), $data);
-
-        return $results;
+        return $this->http()->post($this->getEndpoint(), $data);
     }
 
     /**
@@ -101,7 +99,7 @@ final class SslCertificates extends AbstractEndpoint
      * }          $data
      *
      * @return array{}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function reissue(int $id, array $data): array
     {

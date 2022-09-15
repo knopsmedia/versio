@@ -2,13 +2,13 @@
 
 namespace Versio\Endpoints;
 
-use Versio\Exceptions\Exception;
+use Versio\Exceptions\ErrorException;
 
 final class ResellerHostingPlans extends AbstractEndpoint
 {
     /**
      * @return array
-     * @throws Exception
+     * @throws ErrorException
      */
     public function list(): array
     {
@@ -19,10 +19,10 @@ final class ResellerHostingPlans extends AbstractEndpoint
      * @param int $planId
      *
      * @return array
-     * @throws Exception
+     * @throws ErrorException
      */
     public function get(int $planId): array
     {
-        return $this->http()->get($this->getEndpoint() . '/' . $planId);
+        return $this->http()->get($this->getEndpoint() . "/$planId");
     }
 }

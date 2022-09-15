@@ -7,7 +7,7 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriFactoryInterface;
-use Versio\Exceptions\Exception;
+use Versio\Exceptions\ErrorException;
 
 final class HttpMethods
 {
@@ -42,7 +42,7 @@ final class HttpMethods
      * @param array  $query
      *
      * @return array
-     * @throws Exception
+     * @throws ErrorException
      */
     public function get(string $path, array $query = []): array
     {
@@ -54,7 +54,7 @@ final class HttpMethods
      * @param array  $data
      *
      * @return array
-     * @throws Exception
+     * @throws ErrorException
      */
     public function post(string $path, array $data = []): array
     {
@@ -65,7 +65,7 @@ final class HttpMethods
      * @param string $path
      *
      * @return bool
-     * @throws Exception
+     * @throws ErrorException
      */
     public function delete(string $path): bool
     {
@@ -81,12 +81,12 @@ final class HttpMethods
      * @param bool                             $decodeResponse
      *
      * @return ResponseInterface|array
-     * @throws Exception
+     * @throws ErrorException
      */
     private function request(string $method, string $path, array $options = [], bool $decodeResponse = false): ResponseInterface|array
     {
         $uri = $this->uriFactory->createUri($this->configuration->getBaseUri());
-        $uri = $uri->withPath($uri->getPath() . '/' . $path);
+        $uri = $uri->withPath($uri->getPath() . '/' . ltrim($path, '/'));
 
         if (array_key_exists('query', $options) && is_array($options['query']) && $options['query']) {
             $uri = $uri->withQuery(\http_build_query($options['query']));
@@ -102,21 +102,22 @@ final class HttpMethods
         try {
             $response = $this->client->sendRequest($request);
         } catch (ClientExceptionInterface $e) {
-            throw new Exception($e->getMessage(), previous: $e);
+            throw new ErrorException($e->getMessage(), $e->getCode(), previous: $e);
         }
 
         $statusCode = $response->getStatusCode();
         $throwException = $this->configuration->getThrowExceptionOn4xx() && 400 <= $statusCode && $statusCode < 500;
 
-        if ($throwException && !$decodeResponse) {
-            $decodeResponse = !$decodeResponse;
+        if ($throwException && false === $decodeResponse) {
+            $decodeResponse = true;
         }
 
         if ($decodeResponse) {
             $data = \json_decode($response->getBody()->getContents(), true);
+            var_dump($data);
 
             if ($throwException) {
-                throw new Exception($data['message']);
+                throw new ErrorException($data['error']['message'], $data['error']['code']);
             }
 
             return $data;

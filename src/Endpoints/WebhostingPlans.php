@@ -2,13 +2,13 @@
 
 namespace Versio\Endpoints;
 
-use Versio\Exceptions\Exception;
+use Versio\Exceptions\ErrorException;
 
 final class WebhostingPlans extends AbstractEndpoint
 {
     /**
      * @return array{webhostingPlansList: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function list(): array
     {
@@ -19,7 +19,7 @@ final class WebhostingPlans extends AbstractEndpoint
      * @param int $id
      *
      * @return array{webhostingPlanInfo: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function get(int $id): array
     {

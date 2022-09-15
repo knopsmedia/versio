@@ -2,7 +2,7 @@
 
 namespace Versio\Endpoints;
 
-use Versio\Exceptions\Exception;
+use Versio\Exceptions\ErrorException;
 
 final class Tld extends AbstractEndpoint
 {
@@ -10,7 +10,7 @@ final class Tld extends AbstractEndpoint
      * @param string $tld
      *
      * @return array{tldInfo: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function get(string $tld): array
     {
@@ -19,7 +19,7 @@ final class Tld extends AbstractEndpoint
 
     /**
      * @return array{tldInfo: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function list(): array
     {

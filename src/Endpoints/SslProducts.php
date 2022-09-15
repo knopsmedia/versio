@@ -2,7 +2,7 @@
 
 namespace Versio\Endpoints;
 
-use Versio\Exceptions\Exception;
+use Versio\Exceptions\ErrorException;
 
 final class SslProducts extends AbstractEndpoint
 {
@@ -10,7 +10,7 @@ final class SslProducts extends AbstractEndpoint
      * @param int $id
      *
      * @return array{SSLproductInfo: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function get(int $id): array
     {
@@ -19,7 +19,7 @@ final class SslProducts extends AbstractEndpoint
 
     /**
      * @return array{sslproductsList: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function list(): array
     {

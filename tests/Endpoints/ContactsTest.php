@@ -20,7 +20,7 @@ final class ContactsTest extends AbstractEndpointTest
      * @covers Contacts::list()
      *
      * @return void
-     * @throws \Versio\Exceptions\Exception
+     * @throws \Versio\Exceptions\ErrorException
      */
     public function testItReturnsContacts(): void
     {

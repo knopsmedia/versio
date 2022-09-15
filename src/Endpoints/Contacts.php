@@ -2,21 +2,31 @@
 
 namespace Versio\Endpoints;
 
-use Versio\Exceptions\Exception;
+use Versio\Exceptions\ErrorException;
 
 final class Contacts extends AbstractEndpoint
 {
     /**
-     * Creates a new contact from data.
+     * Creates a new contact in your account.
      *
      * @param array{
-     *     company: string,
+     *     company: string|null,
      *     firstname: string,
-     *     surname: string
+     *     surname: string,
+     *     email: string,
+     *     phone: string,
+     *     street: string,
+     *     number: string,
+     *     number_addition: string|null,
+     *     zipcode: string,
+     *     city: string,
+     *     country: string,
+     *     default: bool|null,
+     *     properties: array
      * } $data
      *
-     * @return array
-     * @throws Exception
+     * @return array{contact_id: int}
+     * @throws ErrorException
      */
     public function create(array $data): array
     {
@@ -24,21 +34,39 @@ final class Contacts extends AbstractEndpoint
     }
 
     /**
-     * Deletes a contact by ID.
+     * Deletes an existing contact from your account.
      *
      * @param int $contactId
      *
      * @return bool
-     * @throws Exception
+     * @throws ErrorException
      */
     public function delete(int $contactId): bool
     {
-        return $this->http()->delete($this->getEndpoint() . '/' . $contactId);
+        return $this->http()->delete($this->getEndpoint() . "/$contactId");
     }
 
     /**
-     * @return array{ContactList: array}
-     * @throws Exception
+     * Returns all contacts in your account.
+     *
+     * @return array{
+     *   ContactList: array{
+     *     company: string|null,
+     *     firstname: string,
+     *     surname: string,
+     *     email: string,
+     *     phone: string,
+     *     street: string,
+     *     number: string,
+     *     number_addition: string|null,
+     *     zipcode: string,
+     *     city: string,
+     *     country: string,
+     *     default: bool|null,
+     *     properties: array
+     *   }
+     * }
+     * @throws ErrorException
      */
     public function list(): array
     {
@@ -46,13 +74,15 @@ final class Contacts extends AbstractEndpoint
     }
 
     /**
+     * Resends the email validation to your contact.
+     *
      * @param int $contactId
      *
      * @return array{contact_id: int, validation_sent: string}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function resendValidation(int $contactId): array
     {
-        return $this->http()->post(sprintf('%s/%d/resendvalidation', $this->getEndpoint(), $contactId));
+        return $this->http()->post($this->getEndpoint() . "/$contactId/resendvalidation");
     }
 }

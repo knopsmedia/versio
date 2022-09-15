@@ -2,7 +2,7 @@
 
 namespace Versio\Endpoints;
 
-use Versio\Exceptions\Exception;
+use Versio\Exceptions\ErrorException;
 
 final class SslApprovers extends AbstractEndpoint
 {
@@ -10,7 +10,7 @@ final class SslApprovers extends AbstractEndpoint
      * @param string $domain
      *
      * @return array{approverList: array}
-     * @throws Exception
+     * @throws ErrorException
      */
     public function list(string $domain): array
     {
