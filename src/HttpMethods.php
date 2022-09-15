@@ -114,7 +114,6 @@ final class HttpMethods
 
         if ($decodeResponse) {
             $data = \json_decode($response->getBody()->getContents(), true);
-            var_dump($data);
 
             if ($throwException) {
                 throw new ErrorException($data['error']['message'], $data['error']['code']);

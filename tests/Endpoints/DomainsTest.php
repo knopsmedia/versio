@@ -19,6 +19,7 @@ final class DomainsTest extends AbstractEndpointTest
     public function testItCan()
     {
         $domains = $this->domains->list();
-        var_dump($domains);
+
+        // TODO create test
     }
 }
