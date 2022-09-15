@@ -25,6 +25,7 @@
     "require-dev": {
         "guzzlehttp/guzzle": "^7.5",
         "nyholm/psr7": "^1.5",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "vimeo/psalm": "^4.27"
     }
 }

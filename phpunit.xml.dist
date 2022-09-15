@@ -26,7 +26,7 @@
     </coverage>
 
     <php>
-        <env name="USERNAME" value=""/>
-        <env name="PASSWORD" value=""/>
+        <env name="VERSIO_USERNAME" value=""/>
+        <env name="VERSIO_PASSWORD" value=""/>
     </php>
 </phpunit>

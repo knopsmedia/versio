@@ -23,7 +23,7 @@ abstract class AbstractEndpointTest extends TestCase
 
             $this->httpMethods = new HttpMethods(
                 new Client(), $factory, $factory,
-                new Configuration($_ENV['USERNAME'], $_ENV['PASSWORD'], Configuration::TEST)
+                new Configuration($_ENV['VERSIO_USERNAME'], $_ENV['VERSIO_PASSWORD'], Configuration::TEST)
             );
         }
 
